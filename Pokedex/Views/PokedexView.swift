@@ -14,11 +14,8 @@ struct PokedexView: View {
     @StateObject var searchViewModel = SearchViewModel()
     
     var body: some View {
-        TextField("Search Pokemon...", text: $searchViewModel.searchText)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
-                        .padding()
+        
+        SearchBarView(searchText: $searchViewModel.searchText)
         
         ScrollView
         {
@@ -31,7 +28,8 @@ struct PokedexView: View {
                     if pokeList.count > 0
                     {
                         ForEach(pokeList) {pokemon in
-                            PokemonButtonView(pokemon: pokemon)}
+                            PokemonButtonView(pokemon: pokemon)
+                        }
                     }
                     else
                     {

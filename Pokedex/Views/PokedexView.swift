@@ -11,37 +11,43 @@ struct PokedexView: View {
     
     @StateObject var pokeViewModel = PokemonViewModel()
     
-    @State var isPokeSelected = false
+    @StateObject var searchViewModel = SearchViewModel()
     
-    @State private var selectedPokeIndex: Int?
-        
     var body: some View {
+        TextField("Search Pokemon...", text: $searchViewModel.searchText)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                        .padding()
+        
         ScrollView
         {
             if(pokeViewModel.pokemon.count == 151)
             {
+                let pokeList = searchViewModel.searchedPokemon(pokemonList: pokeViewModel.pokemon)
+                
                 VStack
                 {
-                    ForEach(0..<150) { index in
-                        Button(action: {
-                            selectedPokeIndex = index + 1
-                            isPokeSelected.toggle()
-                        },
-                               label: {PokemonView(pokeViewModel: pokeViewModel, pokeId: index)})
-                        .sheet(isPresented: $isPokeSelected, content: {
-                            if let index = selectedPokeIndex
-                            {
-                                Text("\(index)")
-                            }
-                        })
-                        
+                    if pokeList.count > 0
+                    {
+                        ForEach(pokeList) {pokemon in
+                            PokemonButtonView(pokemon: pokemon)}
                     }
+                    else
+                    {
+                        SearchErrorView(psyduck: pokeViewModel.pokemon[53])
+                    }
+      
                 }
+            }
+            else
+            {
+                ProgressView()
             }
         }
         .onAppear
         {
-                    pokeViewModel.generatePokemon()
+            pokeViewModel.generatePokemon()
         }
     }
 }

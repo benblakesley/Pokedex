@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PokemonModel: Codable
+struct PokemonModel: Codable, Identifiable
 {
     var name: String
     

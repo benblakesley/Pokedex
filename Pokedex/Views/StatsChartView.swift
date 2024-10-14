@@ -13,18 +13,34 @@ struct StatsChartView: View {
     var stats: [Stat]
 
     var body: some View {
-        Chart {
-            ForEach(stats, id: \.stat.name) { stat in
-                BarMark(
-                    x: .value("Value", stat.baseStat),
-                    y: .value("Stat", stat.stat.name)
-                )
-                .foregroundStyle(statColors[StatCategory.category(for: stat.baseStat)] ?? .clear)
+        
+        HStack
+        {
+            let chartHeight = 300.0
+            
+            Chart {
+                ForEach(stats, id: \.stat.name) { stat in
+                    BarMark(
+                        x: .value("Value", stat.baseStat),
+                        y: .value("Stat", stat.stat.name)
+                    )
+                    .foregroundStyle(statColors[StatCategory.category(for: stat.baseStat)] ?? .clear)
+                }
             }
+            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            .frame(height: chartHeight)
+            .chartXAxis(.hidden)
+            .chartXScale(domain: 0...160)
+            
+            VStack(spacing: 0)
+            {
+                ForEach(stats, id: \.stat.name) { stat in
+                    Text("\(stat.baseStat)")
+                        .frame(height: chartHeight/6, alignment: .bottom)
+                        .fontWeight(.semibold)
+                }
+            }
+            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
         }
-        .padding()
-        .frame(height: 300)
-        .chartXAxis(.hidden)
-        .chartXScale(domain: 0...160)
     }
 }

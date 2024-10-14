@@ -10,7 +10,7 @@ import Foundation
 class PokemonViewModel: ObservableObject
 {
     @Published var pokemon: [PokemonModel] = []
-    
+
     private let pokeService = PokeService()
     
     public func generatePokemon()

@@ -16,7 +16,7 @@ struct PokedexView: View {
     var body: some View {
         
         SearchBarView(searchText: $searchViewModel.searchText)
-        
+
         ScrollView
         {
             if(pokeViewModel.pokemon.count == 151)
@@ -35,7 +35,6 @@ struct PokedexView: View {
                     {
                         SearchErrorView(psyduck: pokeViewModel.pokemon[53])
                     }
-      
                 }
             }
             else

@@ -77,21 +77,11 @@ struct PokemonButtonContentView: View {
                 {
                     if pokemon.types.indices.contains(0)
                     {
-                        Text(pokemon.types[0].type.name.capitalized)
-                            .frame(width: 80)
-                            .foregroundColor(.white)
-                            .background(pokeColors[pokemon.types[0].type.name])
-                            .cornerRadius(10)
-                            .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2)
+                        PokemonTypeTextView(pokemonType: pokemon.types[0])
                     }
                     if pokemon.types.indices.contains(1)
                     {
-                        Text(pokemon.types[1].type.name.capitalized)
-                            .frame(width: 80)
-                            .foregroundColor(.white)
-                            .background(pokeColors[pokemon.types[1].type.name])
-                            .cornerRadius(10)
-                            .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2)
+                        PokemonTypeTextView(pokemonType: pokemon.types[1])
                             .padding(EdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 0))
                     }
                 }

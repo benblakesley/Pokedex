@@ -36,20 +36,21 @@ struct PokeSprites: Codable {
     }
 }
 
-struct Stat: Codable {
-       var baseStat: Int // Base value of the stat
-       var stat: StatDetail // Details about the stat
+struct Stat: Codable
+{
+    var baseStat: Int // Base value of the stat
+    var stat: StatDetail // Details about the stat
 
-       enum CodingKeys: String, CodingKey {
-           case baseStat = "base_stat" // Map JSON key to property
-           case stat // Nested stat object
-       }
-   }
+    enum CodingKeys: String, CodingKey {
+        case baseStat = "base_stat" // Map JSON key to property
+        case stat // Nested stat object
+    }
+}
 
-   struct StatDetail: Codable {
-       var name: String // Name of the stat (e.g., "hp", "attack")
-       var url: String // URL for the stat
-   }
+struct StatDetail: Codable {
+    var name: String // Name of the stat (e.g., "hp", "attack")
+    var url: String // URL for the stat
+}
 
 struct PokeType: Codable
 {

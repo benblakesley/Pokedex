@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct PokedexView: View {
-    
-    @StateObject var pokeViewModel = PokemonViewModel()
+        
+    @EnvironmentObject var pokeViewModel: PokemonViewModel
     
     @StateObject var searchViewModel = SearchViewModel()
     
@@ -51,4 +51,5 @@ struct PokedexView: View {
 
 #Preview {
     PokedexView()
+        .environmentObject(PokemonViewModel())
 }

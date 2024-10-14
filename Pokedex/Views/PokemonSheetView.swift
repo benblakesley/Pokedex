@@ -73,7 +73,3 @@ struct PokemonSheetView: View {
         .ignoresSafeArea()
     }
 }
-
-//#Preview {
-//    PokemonSheetView(pokeViewModel: PokemonViewModel(), pokeIndex: 47)
-//}

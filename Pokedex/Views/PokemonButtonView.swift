@@ -26,7 +26,3 @@ struct PokemonButtonView: View {
         })
     }
 }
-
-//#Preview {
-//    PokemonButtonView(pokeViewModel: PokemonViewModel(), pokeIndex: 1)
-//}

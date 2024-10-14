@@ -28,7 +28,3 @@ struct StatsChartView: View {
         .chartXScale(domain: 0...160)
     }
 }
-
-//#Preview {
-//    StatsChartView()
-//}

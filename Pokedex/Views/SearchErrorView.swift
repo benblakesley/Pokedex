@@ -34,7 +34,6 @@ struct SearchErrorView: View {
             Text("Psyduck is confused—no matches found!")
                 .font(.title)
                 .multilineTextAlignment(.center)
-                .fontWeight(.light)
         }
     }
 }

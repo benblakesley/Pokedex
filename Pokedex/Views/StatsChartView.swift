@@ -19,6 +19,7 @@ struct StatsChartView: View {
                     x: .value("Value", stat.baseStat),
                     y: .value("Stat", stat.stat.name)
                 )
+                .foregroundStyle(statColors[StatCategory.category(for: stat.baseStat)] ?? .clear)
             }
         }
         .padding()

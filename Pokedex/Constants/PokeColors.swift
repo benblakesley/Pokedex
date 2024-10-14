@@ -29,3 +29,4 @@ let pokeColors: [String: Color] = [
     "fairy": Color(#colorLiteral(red: 0.8392156863, green: 0.5294117647, blue: 0.6784313725, alpha: 1))
 ]
 
+

@@ -10,6 +10,8 @@ import SwiftUI
 struct PokemonButtonContentView: View {
         
     var pokemon: PokemonModel
+    
+    @EnvironmentObject var pokeViewModel: PokemonViewModel
         
     var body: some View {
         ZStack
@@ -68,6 +70,19 @@ struct PokemonButtonContentView: View {
                             .foregroundColor(.gray)
                         
                         Spacer()
+                        
+                        var isFavorited = pokeViewModel.isFavorited(pokemon: pokemon)
+                        
+                        Button {
+                            pokeViewModel.toggleFavorite(for: pokemon)
+                        } label: {
+                            Image(systemName: isFavorited ? "heart.fill" : "heart")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .foregroundColor(isFavorited ? .red : .gray)
+                        }
+
+
                     }
                 }
                 

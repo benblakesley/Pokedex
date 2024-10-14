@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct PokedexView: View {
-    
-    @StateObject var pokeViewModel = PokemonViewModel()
+        
+    @EnvironmentObject var pokeViewModel: PokemonViewModel
     
     @StateObject var searchViewModel = SearchViewModel()
     
     var body: some View {
         
         SearchBarView(searchText: $searchViewModel.searchText)
-        
+
         ScrollView
         {
             if(pokeViewModel.pokemon.count == 151)
@@ -35,7 +35,6 @@ struct PokedexView: View {
                     {
                         SearchErrorView(psyduck: pokeViewModel.pokemon[53])
                     }
-      
                 }
             }
             else
@@ -52,4 +51,5 @@ struct PokedexView: View {
 
 #Preview {
     PokedexView()
+        .environmentObject(PokemonViewModel())
 }

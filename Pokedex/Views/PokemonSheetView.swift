@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PokemonSheetView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     var pokemon: PokemonModel
     
     var body: some View {
@@ -32,11 +34,26 @@ struct PokemonSheetView: View {
             
             VStack
             {
+                HStack
+                {
+                    Spacer()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.white)
+                            .font(.title)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
+                    }
+                }
+
      
                 Text("#\(pokemon.id) \(pokemon.name.capitalized)")
                     .font(.title)
                     .fontWeight(.heavy)
                     .foregroundColor(.white)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
 
                 HStack
                 {

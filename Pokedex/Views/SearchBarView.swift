@@ -35,7 +35,7 @@ struct SearchBarView: View {
                             .foregroundColor(.gray)
                             .padding(.trailing, 8)
                     }
-                    .padding(.trailing, 8)
+//                    .padding(.trailing, 8)
                     .transition(.opacity)
                 }
             }

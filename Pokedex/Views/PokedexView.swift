@@ -13,16 +13,32 @@ struct PokedexView: View {
     
     @StateObject var searchViewModel = SearchViewModel()
     
+    @State var filterFavorites = false
+    
     var body: some View {
         
-        SearchBarView(searchText: $searchViewModel.searchText)
+        HStack
+        {
+            SearchBarView(searchText: $searchViewModel.searchText)
+            
+            Button {
+                filterFavorites.toggle()
+            } label: {
+                Image(systemName: filterFavorites ? "heart.fill" : "heart")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(filterFavorites ? .red : .gray)
+            }
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
+        }
+   
 
         ScrollView
         {
             if(pokeViewModel.pokemon.count == 151)
             {
-                let pokeList = searchViewModel.searchedPokemon(pokemonList: pokeViewModel.pokemon)
-                
+                let pokeList = filterFavorites ?  searchViewModel.searchedPokemon(pokemonList: pokeViewModel.getFavorites(pokemom: pokeViewModel.pokemon)) : searchViewModel.searchedPokemon(pokemonList: pokeViewModel.pokemon)
+
                 VStack
                 {
                     if pokeList.count > 0

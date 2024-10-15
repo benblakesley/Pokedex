@@ -59,4 +59,20 @@ class PokemonViewModel: ObservableObject
             favoritedPokemonIds.contains(pokemon.id)
         }
     
+    public func getFavorites(pokemom: [PokemonModel]) -> [PokemonModel]
+    {
+        var favorites: [PokemonModel] = []
+        
+        pokemom.forEach { poke in
+            
+            if isFavorited(pokemon: poke)
+            {
+                favorites.append(poke)
+                
+                print(favorites)
+            }
+        }
+        return favorites
+    }
+    
 }

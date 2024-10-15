@@ -71,7 +71,7 @@ struct PokemonButtonContentView: View {
                         
                         Spacer()
                         
-                        var isFavorited = pokeViewModel.isFavorited(pokemon: pokemon)
+                        let isFavorited = pokeViewModel.isFavorited(pokemon: pokemon)
                         
                         Button {
                             pokeViewModel.toggleFavorite(for: pokemon)

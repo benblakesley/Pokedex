@@ -45,8 +45,10 @@ struct PokemonButtonContentView: View {
                             .clipped()
                     case .failure:
                         Color.clear
+                            .frame(width: 100, height: 100)
                     @unknown default:
                         Color.clear
+                            .frame(width: 100, height: 100)
                     }
                 }
                 

@@ -22,7 +22,7 @@ struct StatsChartView: View {
                 ForEach(stats, id: \.stat.name) { stat in
                     BarMark(
                         x: .value("Value", stat.baseStat),
-                        y: .value("Stat", stat.stat.name)
+                        y: .value("Stat", stat.stat.name.rawValue)
                     )
                     .foregroundStyle(statColors[StatCategory.category(for: stat.baseStat)] ?? .clear)
                 }

@@ -12,7 +12,7 @@ struct PokemonTypeTextView: View {
     var pokemonType: PokeType
     
     var body: some View {
-        Text(pokemonType.type.name.capitalized)
+        Text(pokemonType.type.name.rawValue.capitalized)
             .frame(width: 80)
             .foregroundColor(.white)
             .background(pokeColors[pokemonType.type.name])

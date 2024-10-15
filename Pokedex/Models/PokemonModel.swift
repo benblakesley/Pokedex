@@ -48,9 +48,20 @@ struct Stat: Codable
 }
 
 struct StatDetail: Codable {
-    var name: String // Name of the stat (e.g., "hp", "attack")
+    var name: PokeStatEnum // Name of the stat (e.g., "hp", "attack")
     var url: String // URL for the stat
 }
+
+enum PokeStatEnum: String, Codable
+{
+    case Hp = "hp"
+    case SpecialAttac = "special-attack"
+    case SpecialDefense = "special-defense"
+    case Attack = "attack"
+    case Defense = "defense"
+    case Speed = "speed"
+}
+
 
 struct PokeType: Codable
 {
@@ -61,7 +72,30 @@ struct PokeType: Codable
 
 struct Type: Codable
 {
-    var name: String
+    var name: PokeTypeEnum
     
     var url: String
 }
+
+enum PokeTypeEnum: String, Codable
+{
+    case normal = "normal"
+    case fire = "fire"
+    case water = "water"
+    case electric = "electric"
+    case grass = "grass"
+    case ice = "ice"
+    case fighting = "fighting"
+    case poison = "poison"
+    case ground = "ground"
+    case flying = "flying"
+    case psychic = "psychic"
+    case bug = "bug"
+    case rock = "rock"
+    case ghost = "ghost"
+    case dragon = "dragon"
+    case dark = "dark"
+    case steel = "steel"
+    case fairy = "fairy"
+}
+

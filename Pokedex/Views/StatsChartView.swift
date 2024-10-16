@@ -30,7 +30,7 @@ struct StatsChartView: View {
             .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
             .frame(height: chartHeight)
             .chartXAxis(.hidden)
-            .chartXScale(domain: 0...160)
+            .chartXScale(domain: 0...250)
             
             VStack(spacing: 0)
             {

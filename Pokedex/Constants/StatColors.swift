@@ -34,7 +34,7 @@ enum StatCategory: String {
             return .average
         case 91...120:
             return .good
-        case 121...160:
+        case 121...250:
             return .great
         default:
             return .awful // Default case if value is out of range

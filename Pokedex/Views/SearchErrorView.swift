@@ -11,29 +11,35 @@ struct SearchErrorView: View {
     
     var psyduck: PokemonModel
     
+    @State private var image: UIImage?
+    
+    @EnvironmentObject var pokeViewModel: PokemonViewModel
+    
     var body: some View {
         VStack
         {
-            AsyncImage(url: URL(string: psyduck.sprites.frontDefault ?? "")) { phase in
-                switch phase {
-                case .empty:
-                    Color.clear // Placeholder while loading
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 300, height: 300)
-                        .clipped()
-                case .failure:
-                    Color.clear
-                @unknown default:
-                    Color.clear
-                }
+            if let image = self.image
+            {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 300, height: 300)
+                    .clipped()
+            }
+            else
+            {
+                Color.clear
+                    .frame(width: 300, height: 300)
             }
             
             Text("Psyduck is confused—no matches found!")
                 .font(.title)
                 .multilineTextAlignment(.center)
+        }
+        .onAppear{
+            pokeViewModel.getPokeImage(url: psyduck.sprites.frontDefault ?? "") { imageOptional in
+                self.image = imageOptional
+            }
         }
     }
 }

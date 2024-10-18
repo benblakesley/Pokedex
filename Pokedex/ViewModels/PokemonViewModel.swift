@@ -8,13 +8,39 @@
 import Foundation
 import SwiftUI
 
+
 class PokemonViewModel: ObservableObject
 {
     @Published var pokemon: [PokemonModel] = []
 
     private let pokeService = PokeService()
     
+    private var manager = ImageCacheManager.instance
+    
+    private var imageLoader = ImageLeader()
+    
     @AppStorage("favoritedPokemonIds") private var favoritedPokemonIdsData: Data = Data()
+
+    func getPokeImage(url: String, completion: @escaping (UIImage?) -> Void)
+    {
+        // If image in cache, then get it
+        if let image = manager.getImage(name: url)
+        {
+            completion(image)
+            return
+        }
+        
+        // else if image not in cache then go fetch it
+        imageLoader.fetchImage(url: url) { image in
+            if let pokeImage = image
+            {
+                // if image fetched successfully then add it to cache
+                self.manager.addImage(image: pokeImage, name: url)
+            }
+        completion(image)
+        }
+    }
+
     
     public func generatePokemon()
     {
@@ -68,8 +94,6 @@ class PokemonViewModel: ObservableObject
             if isFavorited(pokemon: poke)
             {
                 favorites.append(poke)
-                
-                print(favorites)
             }
         }
         return favorites

@@ -21,7 +21,6 @@ struct PokemonModel: Codable, Identifiable
 }
 
 
-
 struct PokeSprites: Codable {
     var frontDefault: String?
     var backDefault: String?

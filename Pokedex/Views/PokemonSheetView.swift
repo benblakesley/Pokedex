@@ -13,6 +13,10 @@ struct PokemonSheetView: View {
     
     var pokemon: PokemonModel
     
+    @State private var image: UIImage?
+    
+    @EnvironmentObject var pokeViewModel: PokemonViewModel
+    
     var body: some View {
         
         ZStack
@@ -67,26 +71,28 @@ struct PokemonSheetView: View {
                     }
                 }
                 
-                AsyncImage(url: URL(string: pokemon.sprites.frontDefault ?? "")) { phase in
-                    switch phase {
-                    case .empty:
-                        Color.clear // Placeholder while loading
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 300, height: 300)
-                            .clipped()
-                    case .failure:
-                        Color.clear
-                    @unknown default:
-                        Color.clear
-                    }
+                if let image = self.image
+                {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 300, height: 300)
+                        .clipped()
+                }
+                else
+                {
+                    Color.clear
+                        .frame(width: 300, height: 300)
                 }
                 
                 StatsChartView(stats: pokemon.stats)
             }
         }
         .ignoresSafeArea()
+        .onAppear{
+            pokeViewModel.getPokeImage(url: pokemon.sprites.frontDefault ?? "") { imageOptional in
+                self.image = imageOptional
+            }
+        }
     }
 }

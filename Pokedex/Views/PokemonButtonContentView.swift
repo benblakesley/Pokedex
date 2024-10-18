@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct PokemonButtonContentView: View {
-        
+    
     var pokemon: PokemonModel
     
+    @State private var image: UIImage?
+    
     @EnvironmentObject var pokeViewModel: PokemonViewModel
-        
+    
     var body: some View {
         ZStack
         {
@@ -33,23 +35,18 @@ struct PokemonButtonContentView: View {
             
             HStack
             {
-                AsyncImage(url: URL(string: pokemon.sprites.frontDefault ?? "")) { phase in
-                    switch phase {
-                    case .empty:
-                        Color.clear // Placeholder while loading
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .clipped()
-                    case .failure:
-                        Color.clear
-                            .frame(width: 100, height: 100)
-                    @unknown default:
-                        Color.clear
-                            .frame(width: 100, height: 100)
-                    }
+                if let image = self.image
+                {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                }
+                else
+                {
+                    Color.clear
+                        .frame(width: 100, height: 100)
                 }
                 
                 VStack
@@ -79,12 +76,12 @@ struct PokemonButtonContentView: View {
                             pokeViewModel.toggleFavorite(for: pokemon)
                         } label: {
                             Image(systemName: isFavorited ? "heart.fill" : "heart")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                            .foregroundColor(isFavorited ? .red : .gray)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(isFavorited ? .red : .gray)
                         }
-
-
+                        
+                        
                     }
                 }
                 
@@ -107,5 +104,10 @@ struct PokemonButtonContentView: View {
         .frame(height: 100)
         .cornerRadius(20)
         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        .onAppear{
+            pokeViewModel.getPokeImage(url: pokemon.sprites.frontDefault ?? "") { imageOptional in
+                self.image = imageOptional
+            }
+        }
     }
 }

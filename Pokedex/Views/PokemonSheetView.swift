@@ -17,8 +17,11 @@ struct PokemonSheetView: View {
     
     @EnvironmentObject var pokeViewModel: PokemonViewModel
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         
+        let isDarkMode = (colorScheme == .dark)
         ZStack
         {
             if pokemon.types.count > 1
@@ -28,12 +31,12 @@ struct PokemonSheetView: View {
                 
                 LinearGradient(gradient: Gradient(colors: [color1!, color2!]),
                                startPoint: .top,
-                               endPoint: .bottom).opacity(0.5)
+                               endPoint: .bottom).opacity(isDarkMode ? 1 : 0.5)
             }
             else if pokemon.types.count == 1
             {
                 pokeColors[pokemon.types[0].type.name]
-                    .opacity(0.5)
+                    .opacity(isDarkMode ? 1 : 0.5)
             }
             
             VStack

@@ -35,11 +35,11 @@ struct PokedexView: View {
 
         ScrollView
         {
-            if(pokeViewModel.pokemon.count == 151)
+            if(pokeViewModel.pokemon.count > 0)
             {
                 let pokeList = filterFavorites ?  searchViewModel.searchedPokemon(pokemonList: pokeViewModel.getFavorites(pokemom: pokeViewModel.pokemon)) : searchViewModel.searchedPokemon(pokemonList: pokeViewModel.pokemon)
 
-                VStack
+                LazyVStack
                 {
                     if pokeList.count > 0
                     {

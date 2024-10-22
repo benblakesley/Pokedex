@@ -10,7 +10,7 @@ import SwiftUI
 
 class SettingsViewModel: ObservableObject
 {
-    @AppStorage("colorScheme") private var settingsData: Data = Data()
+    @AppStorage("colorScheme") public var settingsData: Data = Data()
     
     //give a default color scheme of light
     @Published var settings: SettingsModel = SettingsModel(colorScheme: .light)

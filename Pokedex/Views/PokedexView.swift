@@ -28,7 +28,6 @@ struct PokedexView: View {
             SearchBarView(searchText: $searchViewModel.searchText)
             
             Button {
-                print(colorScheme)
                 settingsViewModel.toggleColorScheme()
             } label: {
                 Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")

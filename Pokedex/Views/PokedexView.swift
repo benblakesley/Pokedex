@@ -11,15 +11,32 @@ struct PokedexView: View {
         
     @EnvironmentObject var pokeViewModel: PokemonViewModel
     
+    @EnvironmentObject var settingsViewModel: SettingsViewModel
+    
     @StateObject var searchViewModel = SearchViewModel()
     
     @State var filterFavorites = false
     
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
+        
+        let isDarkMode = (colorScheme == .dark)
         
         HStack
         {
             SearchBarView(searchText: $searchViewModel.searchText)
+            
+            Button {
+                print(colorScheme)
+                settingsViewModel.toggleColorScheme()
+            } label: {
+                Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+            }
+
             
             Button {
                 filterFavorites.toggle()
@@ -62,10 +79,12 @@ struct PokedexView: View {
         {
             pokeViewModel.generatePokemon()
         }
+        .preferredColorScheme(colorSchemeMap[settingsViewModel.settings.colorScheme])
     }
 }
 
 #Preview {
     PokedexView()
         .environmentObject(PokemonViewModel())
+        .environmentObject(SettingsViewModel())
 }

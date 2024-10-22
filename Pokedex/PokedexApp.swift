@@ -15,6 +15,7 @@ struct PokedexApp: App {
         WindowGroup {
             PokedexView()
                 .environmentObject(PokemonViewModel())
+                .environmentObject(SettingsViewModel())
         }
     }
 }

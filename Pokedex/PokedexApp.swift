@@ -14,7 +14,7 @@ struct PokedexApp: App {
         
         WindowGroup {
             PokedexView()
-                .environmentObject(PokemonViewModel())
+                .environmentObject(PokemonViewModel(pokemon: [], pokeService: PokeService(), manager: ImageCacheManager.instance, imageLoader: ImageLoader()))
                 .environmentObject(SettingsViewModel())
         }
     }

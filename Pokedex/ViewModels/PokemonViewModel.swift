@@ -11,16 +11,24 @@ import SwiftUI
 
 class PokemonViewModel: ObservableObject
 {
-    @Published var pokemon: [PokemonModel] = []
+    @Published var pokemon: [PokemonModel]
 
-    private let pokeService = PokeService()
+    private let pokeService: PokeService
     
-    private var manager = ImageCacheManager.instance
+    private var manager: ImageCacheManager
     
-    private var imageLoader = ImageLeader()
+    private var imageLoader: ImageLoader
     
     @AppStorage("favoritedPokemonIds") private var favoritedPokemonIdsData: Data = Data()
-
+    
+    init(pokemon: [PokemonModel], pokeService: PokeService, manager: ImageCacheManager, imageLoader: ImageLoader)
+    {
+        self.pokemon = pokemon
+        self.pokeService = pokeService
+        self.manager = manager
+        self.imageLoader = imageLoader
+    }
+    
     func getPokeImage(url: String, completion: @escaping (UIImage?) -> Void)
     {
         // If image in cache, then get it

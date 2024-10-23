@@ -67,6 +67,7 @@ struct PokedexView: View {
                     else
                     {
                         SearchErrorView(psyduck: pokeViewModel.pokemon[53])
+                            .transition(.scale)
                     }
                 }
                 .animation(.easeInOut, value: pokeList.count)

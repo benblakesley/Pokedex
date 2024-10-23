@@ -79,7 +79,7 @@ struct PokedexView: View {
         }
         .onAppear
         {
-            pokeViewModel.generatePokemon()
+            pokeViewModel.generatePokemon(1008)
         }
         .preferredColorScheme(colorSchemeMap[settingsViewModel.settings.colorScheme])
     }

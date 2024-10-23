@@ -61,6 +61,7 @@ struct PokedexView: View {
                     {
                         ForEach(pokeList) {pokemon in
                             PokemonButtonView(pokemon: pokemon)
+                                .transition(.scale)
                         }
                     }
                     else
@@ -68,6 +69,7 @@ struct PokedexView: View {
                         SearchErrorView(psyduck: pokeViewModel.pokemon[53])
                     }
                 }
+                .animation(.easeInOut, value: pokeList.count)
             }
             else
             {

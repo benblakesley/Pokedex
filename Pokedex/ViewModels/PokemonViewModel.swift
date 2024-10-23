@@ -50,9 +50,9 @@ class PokemonViewModel: ObservableObject
     }
 
     
-    public func generatePokemon()
+    public func generatePokemon(_ numberPokemon: Int)
     {
-        (1...151).forEach{(index) in
+        (1...numberPokemon).forEach{(index) in
                 self.pokeService.loadPokemon(index) { (result) in
                     
                     DispatchQueue.main.async {

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import UIKit
 
-class ImageLeader
+class ImageLoader
 {
     private var cancellables = Set<AnyCancellable>()
     

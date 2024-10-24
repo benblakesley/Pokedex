@@ -13,7 +13,7 @@ struct PokedexApp: App {
     var body: some Scene {
         
         WindowGroup {
-            PokedexView()
+            PokedexView(numberOfPokemon: 1008)
                 .environmentObject(PokemonViewModel(pokemon: [], pokeService: PokeService(), manager: ImageCacheManager.instance, imageLoader: ImageLoader()))
                 .environmentObject(SettingsViewModel())
         }

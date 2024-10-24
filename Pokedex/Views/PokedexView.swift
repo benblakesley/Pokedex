@@ -51,9 +51,9 @@ struct PokedexView: View {
 
         ScrollView
         {
-            if(pokeViewModel.pokemon.count > 0)
+            if(pokeViewModel.getPokemon().count > 0)
             {
-                let pokeList = filterFavorites ?  searchViewModel.searchedPokemon(pokemonList: pokeViewModel.getFavorites(pokemom: pokeViewModel.pokemon)) : searchViewModel.searchedPokemon(pokemonList: pokeViewModel.pokemon)
+                let pokeList = filterFavorites ?  searchViewModel.searchedPokemon(pokemonList: pokeViewModel.getFavorites(pokemom: pokeViewModel.getPokemon())) : searchViewModel.searchedPokemon(pokemonList: pokeViewModel.getPokemon())
 
                 LazyVStack
                 {
@@ -66,7 +66,7 @@ struct PokedexView: View {
                     }
                     else
                     {
-                        SearchErrorView(psyduck: pokeViewModel.pokemon[53])
+                        SearchErrorView(psyduck: pokeViewModel.getPokemon()[53])
                             .transition(.scale)
                     }
                 }

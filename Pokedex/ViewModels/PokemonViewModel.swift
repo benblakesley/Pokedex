@@ -11,7 +11,7 @@ import SwiftUI
 
 class PokemonViewModel: ObservableObject
 {
-    @Published var pokemon: [PokemonModel]
+    @Published private var pokemon: [PokemonModel]
 
     private let pokeService: PokeService
     
@@ -20,6 +20,11 @@ class PokemonViewModel: ObservableObject
     private var imageLoader: ImageLoader
     
     @AppStorage("favoritedPokemonIds") private var favoritedPokemonIdsData: Data = Data()
+    
+    func getPokemon() -> [PokemonModel]
+    {
+        return self.pokemon
+    }
     
     init(pokemon: [PokemonModel], pokeService: PokeService, manager: ImageCacheManager, imageLoader: ImageLoader)
     {
@@ -50,22 +55,36 @@ class PokemonViewModel: ObservableObject
     }
 
     
-    public func generatePokemon(_ numberPokemon: Int)
-    {
-        (1...numberPokemon).forEach{(index) in
-                self.pokeService.loadPokemon(index) { (result) in
-                    
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let pokemon):
-                            self.pokemon.append(pokemon)
-                            self.pokemon.sort{ $0.id < $1.id }
-                        case .failure(let error):
-                            print(error)
-                        }
+    public func generatePokemon(_ numberPokemon: Int) {
+        var successfulPokeIdFetched = 0
+        
+        func fetchNextPokemon() {
+            guard successfulPokeIdFetched < numberPokemon else { return }
+
+            let nextPokeId = successfulPokeIdFetched + 1
+            self.pokeService.loadPokemon(nextPokeId) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let pokemon):
+                        self.pokemon.append(pokemon)
+                        successfulPokeIdFetched += 1
+                        fetchNextPokemon() // Recursively fetch the next Pokémon
+                    case .failure(let error):
+                        print(error)
+                        //If we fail then we do not increment successfulPokeIdFetched and we try fetching again
+                        fetchNextPokemon()
                     }
                 }
-            }}
+            }
+        }
+
+        // Start the fetching process
+        fetchNextPokemon()
+    }
+    
+    private func fetchPokemon(_ id: Int)
+    {
+    }
      
     private var favoritedPokemonIds: Set<Int> {
            get {

@@ -18,6 +18,8 @@ struct PokedexView: View {
     @State var filterFavorites = false
     
     @Environment(\.colorScheme) var colorScheme
+    
+    var numberOfPokemon: Int
 
     var body: some View {
         
@@ -63,6 +65,11 @@ struct PokedexView: View {
                             PokemonButtonView(pokemon: pokemon)
                                 .transition(.scale)
                         }
+                        if(pokeViewModel.getPokemon().count < numberOfPokemon)
+                        {
+                            ProgressView()
+                                .padding()
+                        }
                     }
                     else
                     {
@@ -79,14 +86,14 @@ struct PokedexView: View {
         }
         .onAppear
         {
-            pokeViewModel.generatePokemon(1008)
+            pokeViewModel.generatePokemon(numberOfPokemon)
         }
         .preferredColorScheme(colorSchemeMap[settingsViewModel.settings.colorScheme])
     }
 }
 
 #Preview {
-    PokedexView()
+    PokedexView(numberOfPokemon: 1008)
         .environmentObject(PokemonViewModel(pokemon: [], pokeService: PokeService(), manager: ImageCacheManager.instance, imageLoader: ImageLoader()))
         .environmentObject(SettingsViewModel())
 }

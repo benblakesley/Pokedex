@@ -55,8 +55,8 @@ class PokemonViewModel: ObservableObject
     }
 
     
-    public func generatePokemon(_ numberPokemon: Int) {
-        var successfulPokeIdFetched = 0
+    public func generatePokemon(_ numberPokemon: Int, offset: Int = 0) {
+        var successfulPokeIdFetched = offset
         
         func fetchNextPokemon() {
             guard successfulPokeIdFetched < numberPokemon else { return }
